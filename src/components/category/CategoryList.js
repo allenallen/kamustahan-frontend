@@ -53,7 +53,7 @@ const CategoryList = () => {
     return (
         <div>
             <AppNavbar />
-            <Container fluid>
+            <Container>
                 <div className="float-end">
                     <Button color="success" tag={Link} to="/category/new">Add Category</Button>
                 </div>
