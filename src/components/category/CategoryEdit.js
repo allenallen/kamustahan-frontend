@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
 import AppNavbar from "../../AppNavbar";
@@ -6,6 +7,8 @@ import AppNavbar from "../../AppNavbar";
 const apiUrl = '/api/v1/category/';
 
 const CategoryEdit = () => {
+    const [cookies] = useCookies(['XSRF-TOKEN']); 
+
     const initialFormState = {
         name: ''
     }
@@ -33,9 +36,11 @@ const CategoryEdit = () => {
         await fetch(apiUrl + (category.id ? category.id : ''), {
             method: (category.id ? 'PUT' : 'POST'),
             headers: {
+                'X-XSRF-TOKEN': cookies['XSRF-TOKEN'],
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify(category)
         });
 
